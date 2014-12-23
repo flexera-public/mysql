@@ -53,12 +53,25 @@ have_func('rb_str_set_len')
 have_func('rb_thread_start_timer')
 
 if have_header('mysql.h') then
+puts '*' * 80
+puts "mysql.h"
+puts '*' * 80
   src = "#include <errmsg.h>\n#include <mysqld_error.h>\n"
 elsif have_header('mysql/mysql.h') then
+puts '*' * 80
+puts 'mysql/mysql.h'
+puts '*' * 80
   src = "#include <mysql/errmsg.h>\n#include <mysql/mysqld_error.h>\n"
 else
+puts '*' * 80
+puts "WTF NO MYSQL.H"
+puts '*' * 80
   exit 1
 end
+
+puts '-' * 80
+puts src.inspect
+puts '-' * 80
 
 # make mysql constant
 File.open("conftest.c", "w") do |f|
