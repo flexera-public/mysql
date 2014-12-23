@@ -26,6 +26,9 @@ if RUBY_PLATFORM =~ /mswin|mingw/
   inc, lib = dir_config('mysql')
   exit 1 unless have_library("libmysql")
 elsif mc = with_config('mysql-config', default_mysql_config_path) then
+puts '*' * 80
+puts mc.inspect
+puts '*' * 80
   mc = 'mysql_config' if mc == true
   cflags = `#{mc} --cflags`.chomp
   exit 1 if $? != 0
@@ -34,6 +37,9 @@ elsif mc = with_config('mysql-config', default_mysql_config_path) then
   $CPPFLAGS += ' ' + cflags
   $libs = libs + " " + $libs
 else
+puts '*' * 80
+puts 'wtf no mysql_config'
+puts '*' * 80
   inc, lib = dir_config('mysql', '/usr/local')
   libs = ['m', 'z', 'socket', 'nsl', 'mygcc']
   while not find_library('mysqlclient', 'mysql_query', lib, "#{lib}/mysql") do
